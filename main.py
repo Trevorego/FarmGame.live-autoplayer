@@ -19,20 +19,20 @@ def farm(driver):
     
     button = driver.find_element(By.XPATH, "//button[@class='item-slot']")
     tiles = driver.find_elements(By.XPATH, "//div[@style='width: 100%; height: 100%; position: relative; display: flex; justify-content: center; align-items: center;']")
+    button.click()
     
-    for i in range(4):
-        button.click()
-        
+    for _ in range(4):
         for tile in tiles:
             tile.click()
         
         time.sleep(31)
         
-        for _ in range(5):
+        for i in range(5):
             for tile in tiles:
                 tile.click()
-            if _ < 4:
-                time.sleep(6)
+                time.sleep(0.05)
+            if i < 4:
+                time.sleep(3)
             
 
 def market(driver):
