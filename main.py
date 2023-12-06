@@ -31,7 +31,9 @@ def farm(driver):
         for _ in range(5):
             for tile in tiles:
                 tile.click()
+            if _ < 4:
                 time.sleep(6)
+            
 
 def market(driver):
     driver.get("https://farmgame.live/market")
