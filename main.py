@@ -45,13 +45,12 @@ def market(driver):
     
 
 def gameplay(driver):
-    farm(driver)
-    """while True:
+    while True:
         shop(driver)
         
         farm(driver)
         
-        market(driver)"""
+        market(driver)
         
         
 
