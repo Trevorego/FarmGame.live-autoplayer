@@ -76,9 +76,13 @@ def setup():
     return driver
 
 def main():
-    driver = setup()
-    
-    gameplay(driver)
+    while True:
+        try:
+            driver = setup()
+            
+            gameplay(driver)
+        except:
+            print("Some error has been occured starting again...")
 
 if __name__ == "__main__":
     main()
