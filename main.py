@@ -19,6 +19,7 @@ def terminate_process_by_name(process_name):
             except psutil.AccessDenied:
                 print(f"Access Denied: Cannot terminate {process_name}")
 
+
 def shop(driver):
     driver.get("https://farmgame.live/shop")
     time.sleep(5)
@@ -27,6 +28,7 @@ def shop(driver):
 
     for _ in range(8):
         buttons[13].click()
+        
 
 def farm(driver):
     driver.get("https://farmgame.live/plants")
@@ -48,7 +50,7 @@ def farm(driver):
                 time.sleep(0.05)
             if i < 4:
                 time.sleep(3)
-            
+
 
 def market(driver):
     driver.get("https://farmgame.live/market")
@@ -74,8 +76,7 @@ def gameplay(driver):
         
         farm(driver)
         
-        market(driver)
-        
+        #market(driver)
         
 
 def setup():
@@ -99,6 +100,7 @@ def setup():
     
     return driver
 
+
 def main():
     s = f"Starting... {datetime.now()}\n"
     file.write(s)
@@ -115,11 +117,9 @@ def main():
             file.flush()
             print(s)
 
+
 if __name__ == "__main__":
     with open("log.txt", "a") as file:
         file.write("\n\n\n--------New Session--------\n")
         file.flush()
         main()
-
-while True:
-    pass
