@@ -3,6 +3,21 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 import time
+from datetime import datetime
+import psutil
+
+def terminate_process_by_name(process_name):
+    for process in psutil.process_iter(['pid', 'name']):
+        if process.info['name'] == process_name:
+            pid = process.info['pid']
+            try:
+                p = psutil.Process(pid)
+                p.terminate()  # Try terminating gracefully
+                p.wait(3)  # Wait for the process to terminate (3 seconds)
+            except psutil.NoSuchProcess:
+                pass  # Process already terminated or doesn't exist
+            except psutil.AccessDenied:
+                print(f"Access Denied: Cannot terminate {process_name}")
 
 def shop(driver):
     driver.get("https://farmgame.live/shop")
@@ -47,7 +62,14 @@ def market(driver):
     
 
 def gameplay(driver):
+    i=0
     while True:
+        i+=1
+        s = f"Iteration #{i} Time: {datetime.now()}\n"
+        file.write(s)
+        file.flush()
+        print(s)
+        
         shop(driver)
         
         farm(driver)
@@ -57,6 +79,8 @@ def gameplay(driver):
         
 
 def setup():
+    terminate_process_by_name('chrome.exe')
+    
     #create chromeoptions instance
     options = webdriver.ChromeOptions()     
 
@@ -76,16 +100,26 @@ def setup():
     return driver
 
 def main():
+    s = f"Starting... {datetime.now()}\n"
+    file.write(s)
+    file.flush()
+    print(s)
     while True:
         try:
             driver = setup()
             
             gameplay(driver)
-        except:
-            print("Some error has been occured starting again...")
+        except Exception:
+            s = f"ERROR!!! Starting again... {datetime.now()}\n"
+            file.write(s)
+            file.flush()
+            print(s)
 
 if __name__ == "__main__":
-    main()
+    with open("log.txt", "a") as file:
+        file.write("\n\n\n--------New Session--------\n")
+        file.flush()
+        main()
 
 while True:
     pass
